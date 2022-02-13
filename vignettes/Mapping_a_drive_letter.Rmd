@@ -1,0 +1,63 @@
+---
+title: "Mapping_a_drive_letter"
+author: "Dennis Corvi"
+date: "02/07/2022"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Mapping_a_drive_letter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval = F}
+library(corvitools)
+```
+
+In order to map a drive to access the shared drive, it takes time to walk through the process of mapping a drive to a network location. This process can be automated to speed up the process and use few clickers and less typing. Using this function should help with that process. 
+
+Start of by calling the keyring package and storing your Woods Hole network password in an environment variable on Windows. This keeps it secure so you don't accidentally save it publicly somewhere like on Github.   
+
+```{r set_password, eval = F}
+
+Install and load the keyring package:
+install.packages("keyring")
+library(keyring)
+
+# Set your user name and password using the key_set_with_value() function. Set the service to 'woods hole network'
+key_set_with_value(service = "woods hole network", username = "dcorvi", password = "password")
+
+# Retrieve password using:
+key_get("woods hole network", "dcorvi")
+
+# Press f1 on any function to get the help file for it.
+
+```
+
+To map the drive, input the path to the desired folder and set it to the desired drive letter using the = sign in the function. Separate each folder in the path by commas and put them in quotes. Put this path inside the file.path() function. Separate any additional mappings by commas. After listing all mappings, include your username and password for the network as parameters. Input your password using the key_get() function. The beginning network address cannot be included in this documentation. Ask your IT Department or a colleague what this address is.
+
+```{r set drive, eval = F}
+
+if(!require(devtools)) {
+  install.packages("devtools")
+  require(devtools)}
+devtools::install_github("dcorvi/corvitools")
+
+install.packages("keyring")
+library(keyring)
+library(corvitools)
+
+# One mapped drive location
+set_mapped_drive(d = file.path("corvi.com","home38", "dcorvi") , user_name = "dcorvi", password = key_get("woods hole network", "dcorvi"))
+
+# Multiple mapped drive locations
+set_mapped_drive(d = file.path("corvi.com","home38", "dcorvi"), a = file.path("corvi.com","work25", "ssb"), user_name = "dcorvi", password = key_get("woods hole network", "dcorvi"))
+
+```
+
