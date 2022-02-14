@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @import keyring
-#' @importFrom stringr str_detect
+#' @import stringr
 #' @importFrom parallel detectCores
 #'
 #' @examples
@@ -21,7 +21,7 @@
 set_mapped_drive <- function(..., user_name, password){
   if (isFALSE(unname(Sys.info()["sysname"]) == "Windows")) {
     stop("This function is not compatable with a non-Windows OS.")}
-  if (isFALSE(str_detect(system("ipconfig", intern = TRUE)[5], "Ethernet adapter Ethernet 2"))) {stop("Not connected to VPN. This check needs testing. Add issue in repo if incorrect.")}
+  if (isFALSE(stringr::str_detect(system("ipconfig", intern = TRUE)[5], "Ethernet adapter Ethernet 2"))) {stop("Not connected to VPN. This check needs testing. Add issue in repo if incorrect.")}
   message("Disconnecting from all current mapped drives..")
   system("net use")
   system("net use /del * /y")

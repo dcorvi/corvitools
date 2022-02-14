@@ -28,7 +28,9 @@ Start of by calling the keyring package and storing your Woods Hole network pass
 
 Install and load the keyring package:
 install.packages("keyring")
+
 library(keyring)
+
 
 # Set your user name and password using the key_set_with_value() function. Set the service to 'woods hole network'
 key_set_with_value(service = "woods hole network", username = "dcorvi", password = "password")
@@ -50,7 +52,11 @@ if(!require(devtools)) {
 devtools::install_github("dcorvi/corvitools")
 
 install.packages("keyring")
+install.packages("stringr")
+install.packages("parallel")
 library(keyring)
+library(stringr)
+library(parallel)
 library(corvitools)
 
 # One mapped drive location
