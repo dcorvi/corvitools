@@ -1,5 +1,5 @@
 
-# CoRviTools
+# corvitools
 
 <!-- badges: start -->
 <!-- badges: end -->
